@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionController {
 
-    @ExceptionHandler
+    @ExceptionHandler(SignupException.class)
     public ResponseEntity<?> signupExceptionHandle(SignupException signupException) {
         return ResponseEntity.badRequest().body(signupException.getErrorMap());
     }

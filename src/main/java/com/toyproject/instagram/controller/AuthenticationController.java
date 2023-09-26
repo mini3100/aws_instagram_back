@@ -1,5 +1,6 @@
 package com.toyproject.instagram.controller;
 
+import com.toyproject.instagram.dto.SigninReqDto;
 import com.toyproject.instagram.dto.SignupReqDto;
 import com.toyproject.instagram.exception.SignupException;
 import com.toyproject.instagram.service.UserService;
@@ -34,6 +35,12 @@ public class AuthenticationController {
         }
 
         userService.signupUser(signupReqDto);
+        return ResponseEntity.ok(null);
+    }
+
+    @PostMapping("/login")   // 로그인 : Post 요청 url에 표시되는 데이터를 숨김
+    public ResponseEntity<?> signin(@RequestBody SigninReqDto signinReqDto) {
+        userService.signinUser(signinReqDto);
         return ResponseEntity.ok(null);
     }
 }

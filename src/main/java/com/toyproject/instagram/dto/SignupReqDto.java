@@ -4,13 +4,12 @@ import com.toyproject.instagram.entity.User;
 import lombok.Data;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @Data
 public class SignupReqDto {
     @Pattern(regexp = "^[a-zA-Z0-9]+@[0-9a-zA-Z]+\\.[a-z]*$|^[0-9]{11}+$", message = "이메일 또는 전화번호를 입력하세요.")
-    private String phoneAndEmail;
+    private String phoneOrEmail;
 
     @Pattern(regexp = "^[ㄱ-ㅎ|가-힣]*$", message = "이름은 한글만 입력할 수 있습니다.")
     private String name;
@@ -23,7 +22,7 @@ public class SignupReqDto {
 
     public User toUserEntity(BCryptPasswordEncoder passwordEncoder) {
         return User.builder()
-                .email(phoneAndEmail)
+                .email(phoneOrEmail)
                 .name(name)
                 .username(username)
                 .password(passwordEncoder.encode(password)) // 암호화
