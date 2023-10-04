@@ -1,25 +1,36 @@
 package com.toyproject.instagram.security;
 
+import com.toyproject.instagram.entity.Authority;
 import com.toyproject.instagram.entity.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class PrincipalUser implements UserDetails {
 
     private String phoneOrEmailOrUsername;
     private String password;
+    private List<Authority> authorities;
 
-    public PrincipalUser(String phoneOrEmailOrUsername, String password) {
+    public PrincipalUser(String phoneOrEmailOrUsername, String password, List<Authority> authorities) {
         this.phoneOrEmailOrUsername = phoneOrEmailOrUsername;
         this.password = password;
+        this.authorities = authorities;
     }
 
     // 로그인 할 사용자의 권한
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
+        authorities.forEach(authority ->
+                authorityList.add(new SimpleGrantedAuthority(authority.getRole().getRoleName())));
+        // authorities : db에서 들고온 것
+        // SimpleGrantedAuthority 객체 형태로 authorityList에 추가해준다.
+        return authorityList;
     }
 
     @Override
