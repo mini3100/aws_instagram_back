@@ -1,4 +1,9 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/instagram
@@ -8,6 +13,9 @@ spring:
 mybatis:
   mapper-locations:
     - /mappers/*.xml
+
+file:
+  path: C:/aws/instagram/back/instagram back/upload
 
 jwt:
   secret: CyuoIFwR6Zv12fY5aJfzNWQPVVN+wZY87elY4VislWRrPuP5c/UF1nyU+71Opy8x75fGyCZnSxnqzuMGvA1npw==
